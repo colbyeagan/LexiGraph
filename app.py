@@ -9,7 +9,6 @@ def index():
 @app.route('/submit', methods=[POST])
 def submit_form() {
     stockId = request.form.get('stockname')
-
     return f''
 }
 
