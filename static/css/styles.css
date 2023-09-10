@@ -163,3 +163,17 @@ p.green{
 p.red{
     margin-bottom: 10px;
 }
+
+#image-chart{
+    display: none;
+}
+
+#view-chart{
+    width: 30%;
+    border-radius: 40px;
+    background-color: rgb(255, 127, 149);
+    color: white;
+    height: 70px;
+    width: 300px;
+    font-size: 45px;
+}
