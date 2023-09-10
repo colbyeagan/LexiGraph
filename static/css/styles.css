@@ -33,8 +33,9 @@ h1{
     gap: 20px;
 }
 
-#sound_img{
+.sound_img{
     height: 80px;
+    width: 80px;
     padding-top: 60px;
 }
 
@@ -85,4 +86,80 @@ input[type="text"]{
 #logo{
     height: 100px;
     width: 100px;
+}
+
+#company-name{
+    width: 500px;
+    height: 150px;
+    background-color: black;
+    border-radius: 40px;
+    color: white;
+    font-size: 130px;
+    padding: 20px;
+}
+
+#open-price{
+    height: 75px;
+    border-radius: 40px;
+    color: black;
+    font-size: 80px;
+}
+
+#high-price{
+    width: 300px;
+    border-radius: 40px;
+    background-color: #3C8443;
+    color: white;
+    font-size: 40px;
+    padding: 10px;
+}
+
+#low-price{
+    width: 300px;
+    border-radius: 40px;
+    background-color: #831D1D;
+    color: white;
+    font-size: 40px;
+    padding: 10px;
+}
+
+
+
+.about-div{
+    margin-left: 100px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#about-values{
+    font: white;
+    font-size: 50px;
+    padding-left: 25px;
+}
+
+
+#variant-prices{
+    position: absolute;
+    top: 15%;
+    left: 50%;
+}
+
+p#open-price{
+    margin-top: 10px;
+}
+
+.green{
+    color: green;
+}
+
+.red{
+    color: #831D1D;
+}
+
+p.green{
+    margin-bottom: 10px;
+}
+
+p.red{
+    margin-bottom: 10px;
 }

@@ -13,8 +13,48 @@
         </form>
     </header>
     <body>
+        <div class="flex about-div">
+            <span id="company-name" class = "about-values" id = "stockName">{{stockName}}</span>
+            <div class = "flex-row">
+                <p id="open-price">${{openPrice}}</p>
+                <img src = "../static/images/sound.png" alt = "Sound" class = "sound_img"  data-target="1" style = "padding-top:20px;">
+            </div>
+            <div class="flex" id = "variant-prices" style = "gap: 0px;">
+                <p class = "green">High</p>
+                <span id="high-price" class = "about-values">{{highPrice}}</span>
+                <p class = "red">Low</p>
+                <span id="low-price" class = "about-values">{{lowPrice}}</span>
+            </div>
+        </div>
         <div id="chart-container">
             <img src="data:image/png;base64,{{ image_data }}" alt="Chart Image">
         </div>
     </body>
 </html>
+<script>
+    let speech = new SpeechSynthesisUtterance();
+    speech.lang = "en";
+    const speakButtons = document.querySelectorAll(".sound_img");
+
+    function speakText(event) {
+        const targetIndex = event.target.getAttribute('data-target');
+        const allElements = document.getElementsByTagName('*');
+        let textToSpeak = ''; // Declare textToSpeak variable outside the loop
+
+        for (let i = 0; i < allElements.length; i++) {
+            const element = allElements[i];
+            if (element.getAttribute('target') === targetIndex) {
+                textToSpeak = element.getAttribute('data-text'); // Assign the value here
+                break; // Exit the loop once a match is found
+            }
+        }
+
+        if (textToSpeak) { // Check if textToSpeak is not empty
+            speech.text = textToSpeak;
+            window.speechSynthesis.speak(speech);
+        }
+    }
+
+        speakButtons.forEach(button => {
+            button.addEventListener('click', speakText);
+        });

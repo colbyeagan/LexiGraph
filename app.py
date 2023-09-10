@@ -65,6 +65,9 @@ def create_plot(tickerSymbol):
         df['Date'] = pd.to_datetime(df['Date'])
         # Set the 'Date' column as the index
         df.set_index('Date', inplace=True)
+        openPrice = df['Open'][0]
+        lowPrice = df['Low'][0]
+        highPrice = df['High'][0]
         
         # Creates the plt
         plt = create_plot_standard(tickerSymbol, df)
@@ -77,9 +80,10 @@ def create_plot(tickerSymbol):
         image_data_base64 = base64.b64encode(img_buffer.read()).decode('utf-8')
 
         # Display the chart
-        return render_template('about.html', image_data=image_data_base64)
+        return render_template('about.html', image_data=image_data_base64, openPrice = openPrice, lowPrice = lowPrice, highPrice = highPrice, stockName = tickerSymbol)
     else:
         return 'API request failed with status code:', response.status_code
+
 
 #route to fetch time series analysis graph
 @app.route('/submit', methods=['POST'])
