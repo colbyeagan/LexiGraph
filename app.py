@@ -1,6 +1,5 @@
 import matplotlib
 matplotlib.use('Agg')
-
 from flask import Flask, render_template, url_for, request, Response
 from matplotlib.font_manager import FontProperties
 import requests
@@ -11,15 +10,13 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
-"""@app.route('/submit', methods=['POST'])
-def submit_form():
-    stockId = request.form.get('stockname')"""
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 #route to fetch time series analysis graph
 @app.route('/submit', methods=['POST'])
@@ -28,16 +25,12 @@ def fetch_data():
     end_date = datetime.strptime('2018-03-27', '%Y-%m-%d')
     start_date = end_date - timedelta(days=91)
     stockId = request.form.get('stockname')
-<<<<<<< HEAD
-    return f'tickerID: {stockId}'
-=======
     url = f"https://data.nasdaq.com/api/v3/datasets/WIKI/{stockId.upper()}.csv?collapse=none&start_date={start_date}&end_date={end_date}&api_key=tMexE-dhnFFSApsTQVgz"
     response = requests.get(url)
 
     if response.status_code == 200:
         font_sizing = 15
         label_sizing = 30
->>>>>>> 61203b2e9e0509411230df91bcb3999451f8dc1a
 
         # Use Pandas to read the CSV data from the response and create a DataFrame
         df = pd.read_csv(StringIO(response.text))
@@ -66,21 +59,13 @@ def fetch_data():
         plt.savefig(img_buffer, format='png')
         img_buffer.seek(0)
         # Display the chart
-        return Response(img_buffer.read(), content_type='image/png')
+        return render_template('about.html', image_data=img_buffer.read().encode('base64'))
     else:
         return 'API request failed with status code:', response.status_code
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# When it submits, it goes to about page
-# On about page, have the graph on the about page
-# And then have options for the user to select which we then have to send to the backend and make another API call
 
 
 
