@@ -1,3 +1,4 @@
+import base64
 import matplotlib
 matplotlib.use('Agg')
 from flask import Flask, render_template, url_for, request, Response
@@ -60,8 +61,11 @@ def create_plot(tickerSymbol):
         img_buffer = BytesIO()
         plt.savefig(img_buffer, format='png')
         img_buffer.seek(0)
+
+        image_data_base64 = base64.b64encode(img_buffer.read()).decode('utf-8')
+
         # Display the chart
-        return render_template('about.html', image_data=img_buffer.read().encode('base64'))
+        return render_template('about.html', image_data=image_data_base64)
     else:
         return 'API request failed with status code:', response.status_code
 
@@ -70,11 +74,6 @@ def create_plot(tickerSymbol):
 def fetch_data():
     stockId = request.form.get('stockname')
     return create_plot(stockId)
-
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
 
 
 if __name__ == "__main__":
