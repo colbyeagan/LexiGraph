@@ -52,24 +52,6 @@ def create_plot_standard(tickerSymbol, df):
     # Show the plot
     return plt
 
-    """
-    font_sizing = 15
-    label_sizing = 30
-    plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
-    plt.gca().set_facecolor('#FFFAEE')
-    plt.plot(df.index, df['Open'], linestyle='-', color='b', label='Price')
-    plt.xlabel('Date', labelpad=20, fontproperties=custom_font, fontsize=label_sizing)
-    plt.ylabel('Value', labelpad=20, fontproperties=custom_font, fontsize=label_sizing)
-    plt.title(f'{tickerSymbol.upper()} Chart', fontproperties=custom_font, fontsize=label_sizing)
-    plt.grid(True)
-    plt.legend([(tickerSymbol.upper())], prop=custom_font, fontsize=font_sizing)
-    plt.tight_layout()
-    plt.xticks(fontproperties=custom_font, fontsize=font_sizing)
-    plt.yticks(fontproperties=custom_font, fontsize=font_sizing)
-        
-    return plt
-    """
-
 def create_plot(tickerSymbol):
     end_date = datetime.strptime('2018-03-27', '%Y-%m-%d')
     start_date = end_date - timedelta(days=91)
