@@ -5,15 +5,14 @@
         <link href="https://fonts.cdnfonts.com/css/open-dyslexic" rel="stylesheet">
         <link rel = "stylesheet" href = "../static/css/styles.css">
     </head>
-    <header class = "flex">
-        <img src = "img/logo.png" alt = "LexiGraph logo">
-        <form method="POST" action="/submit" class = "flex">
-            <input type="text" id="stock" name="stockname" placeholder="Your stock ticker here..">
-            <input type="submit" value="Submit" id = "submit">
+    <header class = "flex-row">
+        <img src = "../static/images/logo.png" alt = "LexiGraph logo" id = "logo">
+        <form method="POST" action="/submit" class = "flex-row">
+            <input type="text" id="stock" name="stockname" placeholder="Your stock ticker here.." style = "margin-left: 0px; margin-top:20px">
+            <input type="submit" value="Submit" id = "submit" style = "margin-left: 0px; height: 50px; margin-top:20px">
         </form>
     </header>
     <body>
-        
         <div id="chart-container">
             <img src="data:image/png;base64,{{ image_data }}" alt="Chart Image">
         </div>
