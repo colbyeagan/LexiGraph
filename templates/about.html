@@ -17,7 +17,7 @@
             <span id="company-name" class = "about-values" id = "stockName">{{stockName}}</span>
             <div class = "flex-row">
                 <p id="open-price">${{openPrice}}</p>
-                <img src = "../static/images/sound.png" alt = "Sound" class = "sound_img"  data-target="1" style = "padding-top:20px;">
+                <img src = "../static/images/sound.png" alt = "Sound" class = "sound_img" id = "img1" data-target="1" style = "padding-top:20px;">
             </div>
             <div class="flex" id = "variant-prices" style = "gap: 0px;">
                 <p class = "green">High</p>
@@ -35,27 +35,15 @@
 <script>
     let speech = new SpeechSynthesisUtterance();
     speech.lang = "en";
-    const speakButtons = document.querySelectorAll(".sound_img");
-
-    function speakText(event) {
-        const targetIndex = event.target.getAttribute('data-target');
-        const allElements = document.getElementsByTagName('*');
-        let textToSpeak = ''; // Declare textToSpeak variable outside the loop
-
-        for (let i = 0; i < allElements.length; i++) {
-            const element = allElements[i];
-            if (element.getAttribute('target') === targetIndex) {
-                textToSpeak = element.getAttribute('data-text'); // Assign the value here
-                break; // Exit the loop once a match is found
-            }
-        }
-
-        if (textToSpeak) { // Check if textToSpeak is not empty
-            speech.text = textToSpeak;
-            window.speechSynthesis.speak(speech);
-        }
-    }
-
-        speakButtons.forEach(button => {
-            button.addEventListener('click', speakText);
+    const speakButton = document.getElementById('img1');
+    speakButton.addEventListener('click', () => {
+        const stockName = document.getElementById("stockName").textContent;
+        alert(stockName);
+        /*const openPrice = document.getElementById("openPrice").innerHTML;
+        const lowPrice = document.getElementById("lowPrice").innerHTML;
+        const highPrice = document.getElementById("highPrice").innerHTML;*/
+        const text = "Hi";
+        const speech = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(speech);
         });
+</script>

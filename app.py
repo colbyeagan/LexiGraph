@@ -85,7 +85,7 @@ def create_plot(tickerSymbol):
         image_data_base64 = base64.b64encode(img_buffer.read()).decode('utf-8')
 
         # Display the chart
-        return render_template('about.html', image_data=image_data_base64, openPrice = openPrice, lowPrice = lowPrice, highPrice = highPrice, stockName = tickerSymbol)
+        return render_template('about.html', image_data=image_data_base64, openPrice = openPrice, lowPrice = lowPrice, highPrice = highPrice, stockName = tickerSymbol.upper())
     else:
         return 'API request failed with status code:', response.status_code
 
