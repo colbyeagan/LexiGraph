@@ -7,7 +7,10 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 from io import StringIO, BytesIO
-from datetime import datetime, timedelta
+import datetime
+import json
+from datetime import timedelta
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -91,6 +94,9 @@ def create_plot(tickerSymbol):
 def fetch_data():
     stockId = request.form.get('stockname')
     return create_plot(stockId)
+
+
+
 
 
 if __name__ == "__main__":
