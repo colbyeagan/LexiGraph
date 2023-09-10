@@ -7,7 +7,10 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 from io import StringIO, BytesIO
-from datetime import datetime, timedelta
+import datetime
+import json
+from datetime import timedelta
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -85,7 +88,7 @@ def create_plot(tickerSymbol):
         image_data_base64 = base64.b64encode(img_buffer.read()).decode('utf-8')
 
         # Display the chart
-        return render_template('about.html', image_data=image_data_base64, openPrice = openPrice, lowPrice = lowPrice, highPrice = highPrice, stockName = tickerSymbol)
+        return render_template('about.html', image_data=image_data_base64, openPrice = openPrice, lowPrice = lowPrice, highPrice = highPrice, stockName = tickerSymbol.upper())
     else:
         return 'API request failed with status code:', response.status_code
 
@@ -95,6 +98,9 @@ def create_plot(tickerSymbol):
 def fetch_data():
     stockId = request.form.get('stockname')
     return create_plot(stockId)
+
+
+
 
 
 if __name__ == "__main__":

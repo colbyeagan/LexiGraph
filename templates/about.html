@@ -17,7 +17,7 @@
             <span id="company-name" class = "about-values" id = "stockName">{{stockName}}</span>
             <div class = "flex-row">
                 <p id="open-price">${{openPrice}}</p>
-                <img src = "../static/images/sound.png" alt = "Sound" class = "sound_img"  data-target="1" style = "padding-top:20px;">
+                <img src = "../static/images/sound.png" alt = "Sound" class = "sound_img" id = "img1" data-target="1" style = "padding-top:20px;">
             </div>
             <div class="flex" id = "variant-prices" style = "gap: 0px;">
                 <p class = "green">High</p>
@@ -25,37 +25,46 @@
                 <p class = "red">Low</p>
                 <span id="low-price" class = "about-values">{{lowPrice}}</span>
             </div>
+            <button id = "view-chart">View Chart</button>
         </div>
-        <a href="news.html" class="button">Go to About Page</a>
         <div id="chart-container">
-            <img src="data:image/png;base64,{{ image_data }}" alt="Chart Image">
+            <img src="data:image/png;base64,{{ image_data }}" alt="Chart Image" id = "image-chart">
         </div>
     </body>
 </html>
 <script>
     let speech = new SpeechSynthesisUtterance();
     speech.lang = "en";
+    speech.rate = 0.8;
     const speakButtons = document.querySelectorAll(".sound_img");
-
     function speakText(event) {
-        const targetIndex = event.target.getAttribute('data-target');
-        const allElements = document.getElementsByTagName('*');
-        let textToSpeak = ''; // Declare textToSpeak variable outside the loop
-
-        for (let i = 0; i < allElements.length; i++) {
-            const element = allElements[i];
-            if (element.getAttribute('target') === targetIndex) {
-                textToSpeak = element.getAttribute('data-text'); // Assign the value here
-                break; // Exit the loop once a match is found
-            }
-        }
-
-        if (textToSpeak) { // Check if textToSpeak is not empty
-            speech.text = textToSpeak;
-            window.speechSynthesis.speak(speech);
-        }
+        let textToSpeak = ''; 
+        console.log(`speakText function has been called`);
+        const stockName = document.getElementById("company-name").textContent;
+        const priceName = document.getElementById("open-price").textContent;
+        const lowPrice = document.getElementById("low-price").textContent;
+        const highPrice = document.getElementById("high-price").textContent;
+        textToSpeak = "Your current stock ticker is " + stockName + ". The last updated price of this stock is " + priceName + ". The lowest price of the stock this year is " + lowPrice + "while the high price of the stock this year is " + highPrice;
+        speech.text = textToSpeak;
+        window.speechSynthesis.speak(speech);
     }
+    speakButtons.forEach(button => {
+        button.addEventListener('click', speakText);
+    });
+    function display(event) {
 
-        speakButtons.forEach(button => {
-            button.addEventListener('click', speakText);
-        });
+    }
+    const toggle = document.getElementById("view-chart");
+    const imageToToggle = document.getElementById("image-chart");
+    toggle.addEventListener("click", function() {
+        const currentDisplay = imageToToggle.style.display;
+        if (currentDisplay === "none") {
+            imageToToggle.style.display = "block";
+            toggle.textContent = "Hide Chart";
+            imageToToggle.scrollIntoView();
+        } else {
+            imageToToggle.style.display = "none";
+            toggle.textContent = "View Chart";
+        }
+});
+</script>
