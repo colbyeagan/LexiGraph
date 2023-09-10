@@ -24,33 +24,38 @@ def about():
     return render_template('about.html')
 
 def create_plot_standard(tickerSymbol, df):
+
     font_sizing = 15
     label_sizing = 30
 
-    # Create the plot with a background color
-    fig, ax = plt.subplots(figsize=(12, 6), facecolor='#FFFAEE')  # Set the background color here
-    plt.gca().set_facecolor('#FFFAEE')
+    # Define your custom font
+    custom_font_path = 'OpenDyslexic3-Regular.ttf'
+    custom_font = FontProperties(fname=custom_font_path)
+
+    # Create the plot with a light gray background
+    plt.figure(figsize=(12, 6), facecolor='#FFFAEE')  # Set the background color here
 
     # Plot the data
-    ax.plot(df.index, df['Open'], linestyle='-', color='b', label='Price')
+    plt.plot(df.index, df['Open'], linestyle='-', color='b', label='Price')
 
-    # Set the labels with a background color
-    ax.set_xlabel('Date', labelpad=20, fontsize=label_sizing, backgroundcolor='#FFFAEE')
-    ax.set_ylabel('Value', labelpad=20, fontsize=label_sizing, backgroundcolor='#FFFAEE')
+    # Set the labels with a light gray background and custom font
+    plt.xlabel('Date', labelpad=20, fontproperties=custom_font, fontsize=label_sizing, backgroundcolor='#FFFAEE')
+    plt.ylabel('Value', labelpad=20, fontproperties=custom_font, fontsize=label_sizing, backgroundcolor='#FFFAEE')
 
     # Set the title and legend as before
-    ax.set_title(f'{tickerSymbol.upper()} Chart', fontsize=label_sizing)
-    ax.grid(True)
-    ax.legend([(tickerSymbol.upper())], fontsize=font_sizing)
+    plt.title(f'{tickerSymbol.upper()} Chart', fontproperties=custom_font, fontsize=label_sizing)
+    plt.grid(True)
+    plt.legend([(tickerSymbol.upper())], prop=custom_font, fontsize=font_sizing)
 
-    # Set tick labels
-    ax.tick_params(axis='both', labelsize=font_sizing)
+    # Set tick labels with custom font
+    plt.xticks(fontproperties=custom_font, fontsize=font_sizing)
+    plt.yticks(fontproperties=custom_font, fontsize=font_sizing)
 
-    # Tight layout
     plt.tight_layout()
 
     # Show the plot
     return plt
+
 
 def create_plot(tickerSymbol):
     end_date = datetime.strptime('2018-03-27', '%Y-%m-%d')
