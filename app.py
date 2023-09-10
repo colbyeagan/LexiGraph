@@ -1,5 +1,6 @@
 import matplotlib
 matplotlib.use('Agg')
+import base64
 
 from flask import Flask, render_template, url_for, request, Response
 from matplotlib.font_manager import FontProperties
@@ -28,16 +29,12 @@ def fetch_data():
     end_date = datetime.strptime('2018-03-27', '%Y-%m-%d')
     start_date = end_date - timedelta(days=91)
     stockId = request.form.get('stockname')
-<<<<<<< HEAD
-    return f'tickerID: {stockId}'
-=======
     url = f"https://data.nasdaq.com/api/v3/datasets/WIKI/{stockId.upper()}.csv?collapse=none&start_date={start_date}&end_date={end_date}&api_key=tMexE-dhnFFSApsTQVgz"
     response = requests.get(url)
 
     if response.status_code == 200:
         font_sizing = 15
         label_sizing = 30
->>>>>>> 61203b2e9e0509411230df91bcb3999451f8dc1a
 
         # Use Pandas to read the CSV data from the response and create a DataFrame
         df = pd.read_csv(StringIO(response.text))
@@ -61,19 +58,12 @@ def fetch_data():
         plt.xticks(fontproperties=custom_font, fontsize=font_sizing)
         plt.yticks(fontproperties=custom_font, fontsize=font_sizing)
         
-
-        img_buffer = BytesIO()
-        plt.savefig(img_buffer, format='png')
-        img_buffer.seek(0)
-        # Display the chart
-        return Response(img_buffer.read(), content_type='image/png')
     else:
         return 'API request failed with status code:', response.status_code
 
 @app.route('/about')
 def about():
     return render_template('about.html')
-
 
 if __name__ == "__main__":
     app.run(debug=True)
