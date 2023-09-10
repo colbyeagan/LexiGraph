@@ -25,10 +25,39 @@ def submit_form():
     stockId = request.form.get('stockname')"""
 
 def create_plot_standard(tickerSymbol, df):
-    # Create a time series line chart
+    font_sizing = 15
+    label_sizing = 30
+
+    # Create the plot with a background color
+    fig, ax = plt.subplots(figsize=(12, 6), facecolor='#FFFAEE')  # Set the background color here
+    plt.gca().set_facecolor('#FFFAEE')
+
+    # Plot the data
+    ax.plot(df.index, df['Open'], linestyle='-', color='b', label='Price')
+
+    # Set the labels with a background color
+    ax.set_xlabel('Date', labelpad=20, fontsize=label_sizing, backgroundcolor='#FFFAEE')
+    ax.set_ylabel('Value', labelpad=20, fontsize=label_sizing, backgroundcolor='#FFFAEE')
+
+    # Set the title and legend as before
+    ax.set_title(f'{tickerSymbol.upper()} Chart', fontsize=label_sizing)
+    ax.grid(True)
+    ax.legend([(tickerSymbol.upper())], fontsize=font_sizing)
+
+    # Set tick labels
+    ax.tick_params(axis='both', labelsize=font_sizing)
+
+    # Tight layout
+    plt.tight_layout()
+
+    # Show the plot
+    return plt
+
+    """
     font_sizing = 15
     label_sizing = 30
     plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
+    plt.gca().set_facecolor('#FFFAEE')
     plt.plot(df.index, df['Open'], linestyle='-', color='b', label='Price')
     plt.xlabel('Date', labelpad=20, fontproperties=custom_font, fontsize=label_sizing)
     plt.ylabel('Value', labelpad=20, fontproperties=custom_font, fontsize=label_sizing)
@@ -40,6 +69,7 @@ def create_plot_standard(tickerSymbol, df):
     plt.yticks(fontproperties=custom_font, fontsize=font_sizing)
         
     return plt
+    """
 
 def create_plot(tickerSymbol):
     end_date = datetime.strptime('2018-03-27', '%Y-%m-%d')
