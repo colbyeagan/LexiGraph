@@ -1,6 +1,6 @@
+import base64
 import matplotlib
 matplotlib.use('Agg')
-
 from flask import Flask, render_template, url_for, request, Response
 from matplotlib.font_manager import FontProperties
 import requests
@@ -19,10 +19,9 @@ custom_font = FontProperties(fname=custom_font_path)
 def index():
     return render_template('index.html')
 
-
-"""@app.route('/submit', methods=['POST'])
-def submit_form():
-    stockId = request.form.get('stockname')"""
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 def create_plot_standard(tickerSymbol, df):
     font_sizing = 15
@@ -92,8 +91,11 @@ def create_plot(tickerSymbol):
         img_buffer = BytesIO()
         plt.savefig(img_buffer, format='png')
         img_buffer.seek(0)
+
+        image_data_base64 = base64.b64encode(img_buffer.read()).decode('utf-8')
+
         # Display the chart
-        return Response(img_buffer.read(), content_type='image/png')
+        return render_template('about.html', image_data=image_data_base64)
     else:
         return 'API request failed with status code:', response.status_code
 
@@ -102,11 +104,6 @@ def create_plot(tickerSymbol):
 def fetch_data():
     stockId = request.form.get('stockname')
     return create_plot(stockId)
-
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
 
 
 if __name__ == "__main__":
